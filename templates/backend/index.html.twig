@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard Admin{% endblock %}
+
+{% block body %}
+    <h1>Dashboard Administrateur</h1>
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Propriétés</h5>
+                    <p class="card-text">Gérez les propriétés existantes ou ajoutez-en de nouvelles.</p>
+                    <a href="{{ path('admin_property_list') }}" class="btn btn-primary">Gérer les propriétés</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Utilisateurs</h5>
+                    <p class="card-text">Gérez les utilisateurs ou ajoutez de nouveaux comptes.</p>
+                    <a href="{{ path('admin_user_list') }}" class="btn btn-primary">Gérer les utilisateurs</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Demandes de contact</h5>
+                    <p class="card-text">Consultez et gérez les demandes de contact.</p>
+                    <a href="{{ path('admin_contact_list') }}" class="btn btn-primary">Voir les demandes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

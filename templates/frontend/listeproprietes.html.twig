@@ -1,0 +1,55 @@
+{# templates/propriete/listeproprietes.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Propriétés{% endblock %}
+
+{% block body %}
+    <h1>Nos Propriétés</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Photo Principale</th>
+                <th>Titre</th>
+                <th>Type</th>
+                <th>Prix</th>
+                <th>Surface</th>
+                <th>Ville</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for propriete in pagination %}
+                <tr>
+                    <td>{{ propriete.id }}</td>
+                    <td>
+                        {% set photoPrincipale = propriete.getPhoto|filter(photo => photo.principale)|first %}
+                        {% if photoPrincipale %}
+                            <img src="{{ asset(photoPrincipale.filename) }}" alt="Photo Principale" style="max-width: 100px; max-height: 100px;">
+                        {% else %}
+                            <span>Pas de photo</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ propriete.titre }}</td>
+                    <td>{{ propriete.type }}</td>
+                    <td>{{ propriete.prix }}</td>
+                    <td>{{ propriete.surface }}</td>
+                    <td>{{ propriete.ville }}</td>
+                    <td>
+                        <a href="{{ path('proprietedetail', {'id': propriete.id}) }}" class="btn btn-primary">Voir détails</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">Aucune propriété trouvée.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}
+

@@ -1,0 +1,27 @@
+{# templates/security/login.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% set title = "Se connecter à l'espace d'administration" %} 
+
+{% block content %}
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <p>
+      <label for="inputUsername">Pseudo</label>
+      <input type="text" value="{{ last_username }}" name="username" id="inputUsername" 
+             class="form-control" required autofocus>
+    </p>
+    <p>
+      <label for="inputPassword">Mot de passe</label>
+      <input type="password" name="password" id="inputPassword" 
+             class="form-control" required>
+    </p>
+    <p>
+       <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+       <button class="btn btn-lg btn-primary" type="submit">Valider</button>
+    </p>
+</form>
+{% endblock %}

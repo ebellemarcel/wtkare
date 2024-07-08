@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ propriete is defined ? 'Modifier' : 'Ajouter' }} une propriété{% endblock %}
+
+{% block body %}
+    <h1>{{ propriete is defined ? 'Modifier' : 'Ajouter' }} une propriété</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.titre) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.prix) }}
+		{{ form_row(form.surface) }}
+        {{ form_row(form.chambres) }}
+        {{ form_row(form.adresse) }}
+		{{ form_row(form.ville) }}
+        {{ form_row(form.codepostal) }}
+        {{ form_row(form.latitude) }}
+		{{ form_row(form.longitude) }}
+        
+        <h3>Caractéristiques</h3>
+        {{ form_row(form.accessoires) }}
+
+        <h3>Photos</h3>
+        <div class="photo-collection" data-prototype="{{ form_widget(form.photos.vars.prototype)|e('html_attr') }}">
+            {% for photoForm in form.photos %}
+                <div class="photo-item">
+                    {{ form_row(photoForm.file) }}
+                    {{ form_row(photoForm.isPrincipale) }}
+                </div>
+            {% endfor %}
+        </div>
+        <button type="button" class="btn btn-secondary add-another-photo">Ajouter une photo</button>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">{{ propriete is defined ? 'Modifier' : 'Ajouter' }}</button>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            var $collectionHolder = $('.photo-collection');
+            var $addPhotoButton = $('.add-another-photo');
+
+            $addPhotoButton.on('click', function(e) {
+                addPhotoForm($collectionHolder);
+            });
+
+            function addPhotoForm($collectionHolder) {
+                var prototype = $collectionHolder.data('prototype');
+                var index = $collectionHolder.data('index');
+                var newForm = prototype.replace(/__name__/g, index);
+
+                $collectionHolder.data('index', index + 1);
+                var $newFormLi = $('<div class="photo-item"></div>').append(newForm);
+                $collectionHolder.append($newFormLi);
+            }
+        });
+    </script>
+{% endblock %}

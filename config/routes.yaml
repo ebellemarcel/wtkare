@@ -1,0 +1,81 @@
+# Frontend ###
+
+home:
+   path: /
+   controller: App\Controller\FrontendController::index
+
+
+listeproprietes:
+   path: /listeproprietes
+   controller: App\Controller\FrontendController::listeproprietes
+
+
+proprietedetail:
+   path: /proprietedetail/{id}
+   controller: App\Controller\FrontendController::proprietedetail
+   defaults:
+       id: 1
+
+
+findOneBytitre:
+   path: /findOneBytitre
+   controller: App\Controller\FrontendController::findOneBytitre
+
+findByville:
+   path: /findByville
+   controller: App\Controller\FrontendController::findByville
+
+findPropertyByRangeOfPrice:
+   path: /findPropertyByRangeOfPrice
+   controller: App\Controller\FrontendController::findPropertyByRangeOfPrice
+    
+findPropertyByAccessoireType:
+   path: /findPropertyByAccessoireType
+   controller: App\Controller\FrontendController::findPropertyByAccessoireType
+
+findAccessoireByPropriete:
+   path: /findAccessoireByPropriete
+   controller: App\Controller\FrontendController::findAccessoireByPropriete
+
+findContactByPropriete:
+   path: /findContactByPropriete
+   controller: App\Controller\FrontendController::findContactByPropriete
+   
+findPhotoByPropriete:
+   path: /findPhotoByPropriete
+   controller: App\Controller\FrontendController::findPhotoByPropriete
+
+# BackEnd ###
+
+admin_dashboard:
+   path: /admin
+   controller: App\Controller\BackendController::index
+
+admin_liste_proprietes:
+   path: /admin_liste_proprietes
+   controller: App\Controller\BackendController::listeproprietes
+
+admin_liste_contacts:
+   path: /admin_liste_contacts
+   controller: App\Controller\BackendController::listecontacts
+
+admin_propriete_form:
+   path: /admin_propriete_form
+   controller: App\Controller\BackendController::proprieteform
+
+# Security ###
+app_login:
+   path: /admin/login
+   controller: App\Controller\SecurityController::login
+
+app_logout:
+   path: /admin/logout
+   controller: App\Controller\SecurityController::logout
+
+
+
+# Test page ###
+
+test:
+   path: /test
+   controller: App\Controller\TestController::message
