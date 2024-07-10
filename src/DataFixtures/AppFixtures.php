@@ -72,11 +72,12 @@ class AppFixtures extends Fixture
     
 
         // Créer des propriétés avec photos
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $propriete = new Propriete();
             $propriete->setTitre("Propriété $i");
             $propriete->setDescription("Description de la propriété $i");
-            $propriete->setType("Appartement");
+	    $typespropriete = ["Appartement", "Chateau", "Maison", "Domaine"];
+	    $propriete->setType($typespropriete[array_rand($typespropriete)]);
             $propriete->setPrix(mt_rand(100000, 1000000));
 	    $propriete->setSurface(mt_rand(35, 120));
 	    $propriete->setChambres(mt_rand(1, 4));
@@ -172,27 +173,26 @@ class AppFixtures extends Fixture
                 $photo->setFilename($photosUrlarray[$index]);
 		$photo->setDateCreation(new \DateTime());
 		$photo->setPropriete($propriete);
-		$photo->setPrincipale($index === 1);
-                
+		                
                 if (!$mainPhotoAdded) {
-                    $photo->isPrincipale(true);
+                    $photo->setPrincipale(true);
                     $mainPhotoAdded = true;
                 } else {
-                    $photo->isPrincipale(false);
+                    $photo->setPrincipale(false);
                 }
 
                 $manager->persist($photo);
             }
 			
 			// Ajouter des demandes de contact pour la propriété
-            $numberOfRequests = mt_rand(0, 3);  // 0 à 3 demandes par propriété
+            $numberOfRequests = mt_rand(3, 6);  // 3 à 6 demandes par propriété
             for ($j = 0; $j < $numberOfRequests; $j++) {
                 $contact = new Contact();
 		$visit = mt_rand(1, 100);
                 $contact->setNom("Visiteur " .$visit);
                 $contact->setEmail("visiteur" . $visit . "@anynomous.com");
-		$contact->setPhone("0011223344");
-                $contact->setMessage("Je suis intéressé par la propriété $i. Pouvez-vous me donner plus d'informations ?");
+		$contact->setPhone(sprintf("0%09d", mt_rand(100000000, 999999999)));
+                $contact->setMessage("Je suis intéressé par la propriété" .$propriete->getId()." Pouvez-vous me donner plus d'informations ?");
                 $contact->setPropriete($propriete);
                 $contact->setDateCreation(new \DateTime());
 

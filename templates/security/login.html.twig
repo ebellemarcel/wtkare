@@ -1,27 +1,49 @@
 {# templates/security/login.html.twig #}
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        .bg-login {
+            background: linear-gradient(to right, #d4fc79, #96e6a1); /* Gradient vert */
+        }
+    </style>
+</head>
+<body class="bg-login h-screen flex items-center justify-center">
 
-{% set title = "Se connecter à l'espace d'administration" %} 
+    <div class="max-w-md w-full bg-white shadow-md rounded-lg p-8">
+        <h2 class="text-2xl font-bold mb-6 text-center text-green-700">Connexion</h2>
+        {% if error %}
+            <div class="bg-red-100 text-red-700 p-4 rounded mb-4">
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+        {% endif %}
 
-{% block content %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+        <form action="{{ path('app_login') }}" method="post">
+            <div class="mb-4">
+                <label for="username" class="block text-gray-700">Email</label>
+                <input type="text" id="username" name="_username" value="{{ last_username }}" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-green-300">
+            </div>
 
-    <p>
-      <label for="inputUsername">Pseudo</label>
-      <input type="text" value="{{ last_username }}" name="username" id="inputUsername" 
-             class="form-control" required autofocus>
-    </p>
-    <p>
-      <label for="inputPassword">Mot de passe</label>
-      <input type="password" name="password" id="inputPassword" 
-             class="form-control" required>
-    </p>
-    <p>
-       <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-       <button class="btn btn-lg btn-primary" type="submit">Valider</button>
-    </p>
-</form>
-{% endblock %}
+            <div class="mb-6">
+                <label for="password" class="block text-gray-700">Mot de passe</label>
+                <input type="password" id="password" name="_password" class="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-green-300">
+            </div>
+
+            <div class="flex items-center justify-between mb-4">
+                <div>
+                    <input type="checkbox" id="remember_me" name="_remember_me" />
+                    <label for="remember_me" class="text-gray-700">Se souvenir de moi</label>
+                </div>
+                <a href="#" class="text-green-700 hover:text-green-500">Mot de passe oublié ?</a>
+            </div>
+
+            <button type="submit" class="w-full bg-green-700 text-white py-2 rounded hover:bg-green-500 transition duration-200">Connexion</button>
+        </form>
+    </div>
+</body>
+</html>
+

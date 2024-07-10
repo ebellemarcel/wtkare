@@ -103,23 +103,22 @@ class ProprieteRepository extends ServiceEntityRepository
         	return $query->getResult();
     	}
 
-	public function findProprieteById($id)
+	/**
+     	* Trouve une propriété par son ID.
+     	*
+     	* @param int $id
+     	* @return Propriete|null
+     	*/	
+	public function findProprieteById($id): ?Propriete
 	{
-    		$dql = "SELECT p.id, p.titre, p.description, p.type,p.surface, p.prix,
-       		 p.chambres, p.ville, p.codepostal, p.longitude, p.latitude, p.date_creation 
-        	FROM App\Entity\Propriete p 
+    		$dql = "SELECT p FROM App\Entity\Propriete p 
         	WHERE p.id = :id";
 
     		$query = $this->getEntityManager()->createQuery($dql);       
+		$query->setParameter('id', $id);
+    		
 
-    		$proprietes = $query->execute(array('id' => $id));
-
-    		$propriete = null;
-   		if ($proprietes != null && isset($proprietes[0])) {
-       		$proprietes = $proprietes[0];
-    	}
-
-    		return $propriete; 
+    		return $query->getOneOrNullResult(); 
 	}
 
 

@@ -16,7 +16,6 @@ proprietedetail:
    defaults:
        id: 1
 
-
 findOneBytitre:
    path: /findOneBytitre
    controller: App\Controller\FrontendController::findOneBytitre
@@ -27,7 +26,11 @@ findByville:
 
 findPropertyByRangeOfPrice:
    path: /findPropertyByRangeOfPrice
-   controller: App\Controller\FrontendController::findPropertyByRangeOfPrice
+   controller: App\Controller\FrontendController::listByPriceRange
+   methods: GET
+   defaults:
+     minPrice: 0
+     maxPrice: 1000000
     
 findPropertyByAccessoireType:
    path: /findPropertyByAccessoireType

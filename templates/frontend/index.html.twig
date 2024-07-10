@@ -9,27 +9,25 @@
         <hr class="my-4">
         <p>Explorez notre sélection de propriétés haut de gamme.</p>
    
-    </div>
-
-    <h3>Nos Propriétés</h3>
-    <table>
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Photo Principale</th>
-                <th>Titre</th>
-                <th>Type</th>
-                <th>Prix</th>
-                <th>Surface</th>
-                <th>Ville</th>
-                <th>Actions</th>
+                <th class="px-4 py-2">Id</th>
+                <th class="px-4 py-2">Photo Principale</th>
+                <th class="px-4 py-2">Titre</th>
+                <th class="px-4 py-2">Type</th>
+                <th class="px-4 py-2">Prix</th>
+                <th class="px-4 py-2">Surface</th>
+                <th class="px-4 py-2">Ville</th>
+                <th class="px-4 py-2">Actions</th>
             </tr>
         </thead>
         <tbody>
             {% for propriete in pagination %}
-                <tr>
-                    <td>{{ propriete.id }}</td>
-                    <td>
+                <tr class="bg-gray-100">
+                    <td class="border px-4 py-2">{{ propriete.id }}</td>
+                    <td class="border px-4 py-2">
                         {% set photoPrincipale = propriete.getPhoto|filter(photo => photo.principale)|first %}
                         {% if photoPrincipale %}
                             <img src="{{ asset(photoPrincipale.filename) }}" alt="Photo Principale" style="max-width: 100px; max-height: 100px;">
@@ -37,23 +35,23 @@
                             <span>Pas de photo</span>
                         {% endif %}
                     </td>
-                    <td>{{ propriete.titre }}</td>
-                    <td>{{ propriete.type }}</td>
-                    <td>{{ propriete.prix }}</td>
-                    <td>{{ propriete.surface }}</td>
-                    <td>{{ propriete.ville }}</td>
-                    <td>
+                    <td class="border px-4 py-2">{{ propriete.titre }}</td>
+                    <td class="border px-4 py-2">{{ propriete.type }}</td>
+                    <td class="border px-4 py-2">{{ propriete.prix|number_format(0, ',', ' ') }} €</td>
+                    <td class="border px-4 py-2">{{ propriete.surface }} m²</td>
+                    <td class="border px-4 py-2">{{ propriete.ville }}</td>
+                    <td class="border px-4 py-2">
                         <a href="{{ path('proprietedetail', {'id': propriete.id}) }}" class="btn btn-primary">Voir détails</a>
                     </td>
                 </tr>
             {% else %}
-                <tr>
-                    <td colspan="8">Aucune propriété trouvée.</td>
+	<tr>
+                    <td colspan="8" class="border px-4 py-2 text-center">Aucune propriété trouvée.</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-
+  </div>
     <div class="navigation">
         {{ knp_pagination_render(pagination) }}
     </div>
